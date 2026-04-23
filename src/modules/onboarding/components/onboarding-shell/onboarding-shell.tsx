@@ -14,7 +14,7 @@ export const OnboardingShell = ({ children }: OnboardingShellProps) => {
       left={<OnboardingVisualSection />}
       right={
         <ContentPanel className="items-stretch">
-          <div className="mx-auto flex h-full w-full max-w-110 flex-col gap-8">
+          <div className="mx-auto flex w-full max-w-110 flex-1 flex-col gap-8 xl:h-full">
             <OnboardingStepIndicator />
             <div className="flex flex-1 items-center">{children}</div>
           </div>

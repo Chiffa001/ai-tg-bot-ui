@@ -15,7 +15,7 @@ export const AuthVisualSection = ({ mode }: AuthVisualSectionProps) => {
   const content = authVisualModes[mode];
 
   return (
-    <VisualSidePanel className="items-center gap-10 px-8 py-12 lg:px-14 xl:px-15 xl:py-12">
+    <VisualSidePanel className="hidden items-center gap-10 px-8 py-12 xl:flex lg:px-14 xl:px-15 xl:py-12">
       <BrandLogo
         size={content.logoSize}
         tone="light"

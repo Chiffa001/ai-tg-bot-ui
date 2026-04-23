@@ -14,7 +14,7 @@ export const OnboardingVisualSection = () => {
   const stepLabel = `Шаг ${activeStepIndex + 1} из ${onboardingSteps.length} — ${activeStep.description}`;
 
   return (
-    <VisualSidePanel className="items-center gap-10 px-8 py-12 lg:px-14 xl:px-15 xl:py-12">
+    <VisualSidePanel className="hidden items-center gap-10 px-8 py-12 lg:px-14 xl:flex xl:px-15 xl:py-12">
       {activeStep.id === "business" ? (
         <OnboardingBusinessConnectVisual />
       ) : (

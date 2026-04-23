@@ -38,7 +38,7 @@ export const OnboardingStepIndicator = () => {
               </span>
               <span
                 className={cn(
-                  "text-[13px] font-medium transition-colors duration-500 ease-out",
+                  "hidden text-[13px] font-medium transition-colors duration-500 ease-out sm:inline",
                   isComplete && "text-success",
                   isCurrent && "text-accent",
                   !isCurrent && !isComplete && "text-slate-500",
