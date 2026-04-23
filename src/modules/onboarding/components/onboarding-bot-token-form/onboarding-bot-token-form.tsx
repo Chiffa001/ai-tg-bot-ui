@@ -1,6 +1,6 @@
 "use client";
 
-import { ReactNode, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import { useForm, useWatch } from "react-hook-form";
@@ -36,7 +36,6 @@ export const OnboardingBotTokenForm = () => {
   const [submitMessage, setSubmitMessage] = useState("");
   const [isChecking, setIsChecking] = useState(false);
   const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
-  const [connectedBot, setConnectedBot] = useState("");
 
   const {
     formState: { errors },
@@ -89,7 +88,6 @@ export const OnboardingBotTokenForm = () => {
 
     const username = buildBotUsername(token);
 
-    setConnectedBot(username);
     await markBotTokenStepCompleted();
     setSubmitStatus("success");
     setSubmitMessage(`Бот ${username} успешно найден`);
@@ -103,7 +101,6 @@ export const OnboardingBotTokenForm = () => {
   const showError = submitStatus === "error" || Boolean(tokenError);
   const showSuccess = submitStatus === "success";
   let tokenInputStateClassName = "border-slate-200 focus-within:border-accent";
-  let submitIcon: ReactNode = null;
   let submitLabel = "Проверить и продолжить";
 
   if (showError) {
@@ -112,12 +109,10 @@ export const OnboardingBotTokenForm = () => {
 
   if (showSuccess) {
     tokenInputStateClassName = "border-green-500";
-    submitIcon = <CheckCircleIcon className="h-4.5 w-4.5" />;
-    submitLabel = `Переходим дальше${connectedBot ? ` · ${connectedBot}` : ""}`;
+    submitLabel = "Переходим дальше";
   }
 
   if (isChecking) {
-    submitIcon = <SpinnerIcon className="h-4.5 w-4.5 animate-spin" />;
     submitLabel = "Проверяем токен";
   }
 
@@ -173,9 +168,12 @@ export const OnboardingBotTokenForm = () => {
           <Button
             type="submit"
             className="w-full rounded-xl py-3.5"
-            disabled={!isFilled || isChecking}
+            disabled={!isFilled || isChecking || showSuccess}
           >
-            {submitIcon}
+            <span className="h-4.5 w-4.5 shrink-0">
+              {isChecking && <SpinnerIcon className="h-4.5 w-4.5 animate-spin" />}
+              {showSuccess && <CheckCircleIcon className="h-4.5 w-4.5" />}
+            </span>
             {submitLabel}
           </Button>
 
