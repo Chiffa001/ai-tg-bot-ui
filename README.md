@@ -20,6 +20,14 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Development Test Data
+
+Use this valid bot token example for the onboarding bot step:
+
+```text
+1234567890:ABCDefghijklmnopqrstuvwxyz123456789
+```
+
 ## Scripts
 
 ```bash

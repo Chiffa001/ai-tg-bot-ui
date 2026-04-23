@@ -4,20 +4,22 @@ import {
   type AuthMode,
 } from "@/modules/auth/constants/auth-form-modes";
 import { AuthCredentialsForm } from "@/modules/auth/components/auth-credentials-form";
+import { AuthOauthButtons } from "@/modules/auth/components/auth-oauth-buttons";
 import { AuthRouteWrapper } from "@/modules/auth/components/auth-route-wrapper";
-import { GlobeIcon } from "@/modules/auth/components/icons/globe-icon";
-import { TelegramIcon } from "@/modules/auth/components/icons/telegram-icon";
 import { BrandLogo } from "@/shared/components/brand-logo";
-import { Button } from "@/shared/components/ui/button";
 import { ContentColumn } from "@/shared/components/content/content-column";
 import { ContentPanel } from "@/shared/components/content/content-panel";
 import { Divider } from "@/shared/components/ui/divider";
 
 type AuthFormSectionProps = {
   mode: AuthMode;
+  nextPath?: string;
 };
 
-export const AuthFormSection = ({ mode }: AuthFormSectionProps) => {
+export const AuthFormSection = ({
+  mode,
+  nextPath,
+}: AuthFormSectionProps) => {
   const content = authFormModes[mode];
 
   return (
@@ -33,22 +35,17 @@ export const AuthFormSection = ({ mode }: AuthFormSectionProps) => {
             <p className="text-sm text-muted">{content.subtitle}</p>
           </div>
 
-          <div className="mt-7 flex w-full flex-col gap-3">
-            <Button variant="telegram" className="w-full">
-              <TelegramIcon />
-              Войти через Telegram
-            </Button>
-            <Button variant="secondary" className="w-full">
-              <GlobeIcon />
-              Войти через Google
-            </Button>
-          </div>
+          <AuthOauthButtons mode={mode} nextPath={nextPath} />
 
           <Divider className="mt-5">
             <span className="text-xs font-medium text-muted">или</span>
           </Divider>
 
-          <AuthCredentialsForm mode={mode} submitLabel={content.submitLabel} />
+          <AuthCredentialsForm
+            mode={mode}
+            submitLabel={content.submitLabel}
+            nextPath={nextPath}
+          />
 
           <p className="mt-5 text-sm text-muted">
             {content.toggleLabel}{" "}

@@ -7,6 +7,7 @@ const eslintConfig = defineConfig([
   ...nextTs,
   {
     rules: {
+      "no-nested-ternary": "error",
       "react/function-component-definition": [
         "error",
         {
