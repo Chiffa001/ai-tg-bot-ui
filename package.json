@@ -8,9 +8,9 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "test:e2e": "playwright test --ignore=**/screenshots.spec.ts",
-    "test:e2e:ui": "playwright test --ignore=**/screenshots.spec.ts --ui",
-    "test:e2e:screenshots": "playwright test e2e/screenshots.spec.ts",
+    "test:e2e": "playwright test --project=desktop --project=mobile",
+    "test:e2e:ui": "playwright test --project=desktop --project=mobile --ui",
+    "test:e2e:screenshots": "playwright test --project=screenshots",
     "prepare": "husky"
   },
   "dependencies": {
@@ -27,6 +27,8 @@
     "*.{ts,tsx}": "eslint --fix"
   },
   "devDependencies": {
+    "@emnapi/core": "1.9.2",
+    "@emnapi/runtime": "1.9.2",
     "@playwright/test": "^1.59.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",

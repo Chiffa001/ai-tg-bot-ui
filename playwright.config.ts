@@ -15,10 +15,17 @@ export default defineConfig({
     {
       name: "desktop",
       use: { ...devices["Desktop Chrome"] },
+      testIgnore: "**/screenshots.spec.ts",
     },
     {
       name: "mobile",
       use: { ...devices["Pixel 5"] },
+      testIgnore: "**/screenshots.spec.ts",
+    },
+    {
+      name: "screenshots",
+      use: { ...devices["Desktop Chrome"] },
+      testMatch: "**/screenshots.spec.ts",
     },
   ],
   webServer: {
