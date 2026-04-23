@@ -10,7 +10,7 @@ export const SplitPageWrapper = ({
   right,
 }: SplitPageWrapperProps) => {
   return (
-    <div className="grid h-full w-full xl:grid-cols-[minmax(0,680px)_minmax(0,1fr)]">
+    <div className="grid w-full xl:h-full xl:grid-cols-[minmax(0,680px)_minmax(0,1fr)]">
       {left}
       {right}
     </div>

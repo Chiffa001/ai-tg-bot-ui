@@ -1,12 +1,13 @@
-import { notFound } from "next/navigation";
 import { AuthFormSection } from "@/modules/auth/components/auth-form-section";
 import type { AuthMode } from "@/modules/auth/constants/auth-form-modes";
 
 type PageProps = {
-  params: Promise<{ mode: string }>;
+  params: Promise<{ mode: AuthMode }>;
 };
 
 const authModes: AuthMode[] = ["login", "register"];
+
+export const dynamicParams = false;
 
 export const generateStaticParams = () =>
   authModes.map((mode) => ({ mode }));
@@ -14,11 +15,7 @@ export const generateStaticParams = () =>
 const Page = async ({ params }: PageProps) => {
   const { mode } = await params;
 
-  if (!authModes.includes(mode as AuthMode)) {
-     return notFound();
-  }
-
-  return <AuthFormSection mode={mode as AuthMode} />;
+  return <AuthFormSection mode={mode} />;
 };
 
 export default Page;

@@ -30,15 +30,13 @@ export const AuthVisualSection = ({ mode }: AuthVisualSectionProps) => {
         </div>
       ) : (
         <div className="flex w-full max-w-140 flex-col items-center gap-4 text-center">
-          <h2 className="text-4xl font-bold tracking-tight text-white sm:text-[44px]">
+          <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-[44px]">
             {content.heading}
           </h2>
           <p className="text-lg text-slate-400">{content.subtitle}</p>
         </div>
       )}
-      <div
-        className={`flex items-center justify-center ${content.statsGapClassName}`}
-      >
+      <div className="grid w-full max-w-sm grid-cols-3 gap-4">
         {authVisualStats.map((item) => (
           <AuthStat key={item.label} {...item} />
         ))}

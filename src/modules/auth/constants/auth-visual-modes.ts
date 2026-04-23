@@ -4,7 +4,6 @@ export const authVisualModes = {
   login: {
     heading: "С возвращением!",
     logoSize: "lg",
-    statsGapClassName: "gap-10",
     subtitle: "Ваш ИИ-ассистент ждёт вас",
     type: "hero",
   },
@@ -13,14 +12,12 @@ export const authVisualModes = {
     logoSize: "md",
     quote:
       "«Подключил за 5 минут, теперь ИИ отвечает клиентам даже ночью. Продажи выросли на 30%»",
-    statsGapClassName: "gap-8",
     type: "quote",
   },
 } as const satisfies Record<
   AuthVisualMode,
   {
     logoSize: "md" | "lg";
-    statsGapClassName: string;
     type: "hero" | "quote";
   } & (
     | {
