@@ -6,7 +6,7 @@ export const WelcomeCta = () => {
   return (
     <div className="mt-6 flex w-full flex-col gap-2.5">
       <ButtonLink
-        href="/register"
+        href="/auth/register"
         className="w-full"
       >
         Подключить бесплатно
@@ -18,7 +18,7 @@ export const WelcomeCta = () => {
       <p className="text-xs text-muted sm:text-sm">
         Уже есть аккаунт?{" "}
         <Link
-          href="/login"
+          href="/auth/login"
           className="font-semibold text-accent hover:text-accent-strong"
         >
           Войти

@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cn } from "@/shared/lib/cn";
 
 type ContentColumnSize = "sm" | "md";
 
@@ -18,7 +19,15 @@ export const ContentColumn = ({
   className,
   size = "md",
 }: ContentColumnProps) => {
-  const baseClassName = `mx-auto flex w-full flex-col items-center text-center ${sizeClassNames[size]}`;
-
-  return <div className={className ? `${baseClassName} ${className}` : baseClassName}>{children}</div>;
+  return (
+    <div
+      className={cn(
+        "mx-auto flex w-full flex-col items-center text-center",
+        sizeClassNames[size],
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
 };

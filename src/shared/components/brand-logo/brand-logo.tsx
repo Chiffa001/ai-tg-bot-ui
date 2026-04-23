@@ -1,9 +1,11 @@
 import { BotIcon } from "@/shared/components/icons/bot-icon";
+import { cn } from "@/shared/lib/cn";
 
 type BrandLogoTone = "dark" | "light";
 type BrandLogoSize = "sm" | "md" | "lg";
 
 type BrandLogoProps = {
+  className?: string;
   size?: BrandLogoSize;
   tone?: BrandLogoTone;
 };
@@ -46,13 +48,17 @@ const toneClassNames: Record<BrandLogoTone, string> = {
   light: "text-white",
 };
 
-export const BrandLogo = ({ size = "sm", tone = "dark" }: BrandLogoProps) => {
+export const BrandLogo = ({
+  className,
+  size = "sm",
+  tone = "dark",
+}: BrandLogoProps) => {
   const logoSizeClasses = logoSizeClassNames[size];
   const brandSizeClasses = brandSizeClassNames[size];
   const toneClassName = toneClassNames[tone];
 
   return (
-    <div className={`flex items-center ${brandSizeClasses.gap}`}>
+    <div className={cn("flex items-center", brandSizeClasses.gap, className)}>
       <span
         className={`flex items-center justify-center bg-accent text-white shadow-[0_16px_32px_-18px_rgba(37,99,235,0.9)] ${logoSizeClasses.container}`}
       >

@@ -1,7 +1,7 @@
 import { FeatureHighlights } from "@/modules/welcome/components/feature-highlights";
 import { chatPreviewMessages } from "@/modules/welcome/constants/chat-preview-messages";
 import { ChatPreviewCard } from "@/shared/components/chat-preview/chat-preview-card";
-import { VisualSidePanel } from "@/shared/components/ui/visual-side-panel";
+import { VisualSidePanel } from "@/shared/components/page/visual-side-panel";
 
 export const LeftVisualSection = () => {
   return (
