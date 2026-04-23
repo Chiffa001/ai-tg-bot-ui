@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { GlobeIcon } from "@/modules/auth/components/icons/globe-icon";
 import { TelegramIcon } from "@/modules/auth/components/icons/telegram-icon";
@@ -10,16 +10,14 @@ import { Button } from "@/shared/components/ui/button";
 
 type AuthOauthButtonsProps = {
   mode: AuthMode;
-  nextPath?: string;
 };
 
 type AuthProvider = "telegram" | "google";
 
-export const AuthOauthButtons = ({
-  mode,
-  nextPath,
-}: AuthOauthButtonsProps) => {
+export const AuthOauthButtons = ({ mode }: AuthOauthButtonsProps) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const nextPath = searchParams.get("next");
   const [activeProvider, setActiveProvider] = useState<AuthProvider | null>(null);
 
   const handleAuth = async (provider: AuthProvider) => {

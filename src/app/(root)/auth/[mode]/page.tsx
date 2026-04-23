@@ -1,9 +1,16 @@
+import { Suspense } from "react";
+import type { Metadata } from "next";
 import { AuthFormSection } from "@/modules/auth/components/auth-form-section";
 import type { AuthMode } from "@/modules/auth/constants/auth-form-modes";
+import { authFormModes } from "@/modules/auth/constants/auth-form-modes";
 
 type PageProps = {
   params: Promise<{ mode: AuthMode }>;
-  searchParams: Promise<{ next?: string }>;
+};
+
+export const generateMetadata = async ({ params }: PageProps): Promise<Metadata> => {
+  const { mode } = await params;
+  return { title: authFormModes[mode].heading };
 };
 
 const authModes: AuthMode[] = ["login", "register"];
@@ -13,11 +20,14 @@ export const dynamicParams = false;
 export const generateStaticParams = () =>
   authModes.map((mode) => ({ mode }));
 
-const Page = async ({ params, searchParams }: PageProps) => {
+const Page = async ({ params }: PageProps) => {
   const { mode } = await params;
-  const resolvedSearchParams = await searchParams;
 
-  return <AuthFormSection mode={mode} nextPath={resolvedSearchParams.next} />;
+  return (
+    <Suspense>
+      <AuthFormSection mode={mode} />
+    </Suspense>
+  );
 };
 
 export default Page;

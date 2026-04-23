@@ -21,7 +21,7 @@ import {
 import {
   clearBotTokenStepCompleted,
   markBotTokenStepCompleted,
-} from "@/modules/onboarding/lib/onboarding-progress-cookie";
+} from "@/modules/onboarding/actions/onboarding-progress-actions";
 import { Button } from "@/shared/components/ui/button";
 import { cn } from "@/shared/lib/cn";
 import { useOnboardingStore } from "@/modules/onboarding/store/onboarding-store";
@@ -90,7 +90,7 @@ export const OnboardingBotTokenForm = () => {
     const username = buildBotUsername(token);
 
     setConnectedBot(username);
-    markBotTokenStepCompleted();
+    await markBotTokenStepCompleted();
     setSubmitStatus("success");
     setSubmitMessage(`Бот ${username} успешно найден`);
     setIsChecking(false);

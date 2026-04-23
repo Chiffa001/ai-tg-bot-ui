@@ -16,7 +16,14 @@ const buildToken = (type: "access" | "refresh", provider: string, mode: string) 
 };
 
 export const POST = async (request: Request) => {
-  const body = (await request.json().catch(() => ({}))) as MockSessionRequestBody;
+  let body: MockSessionRequestBody;
+
+  try {
+    body = await request.json();
+  } catch (error) {
+    console.error("[mock-session] Failed to parse request body:", error);
+    return NextResponse.json({ ok: false, error: "Invalid request body" }, { status: 400 });
+  }
   const mode = body.mode === "register" ? "register" : "login";
   const provider = body.provider ?? "credentials";
 

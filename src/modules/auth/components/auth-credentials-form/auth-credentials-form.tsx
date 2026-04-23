@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
 import type { AuthMode } from "@/modules/auth/constants/auth-form-modes";
@@ -17,16 +17,16 @@ import { TextField } from "@/shared/components/ui/text-field";
 
 type AuthCredentialsFormProps = {
   mode: AuthMode;
-  nextPath?: string;
   submitLabel: string;
 };
 
 export const AuthCredentialsForm = ({
   mode,
-  nextPath,
   submitLabel,
 }: AuthCredentialsFormProps) => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const nextPath = searchParams.get("next");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -50,7 +50,8 @@ export const AuthCredentialsForm = ({
 
       router.push(destination);
       router.refresh();
-    } catch {
+    } catch (error) {
+      console.error("[auth] Failed to create mock session:", error);
       setSubmitError("Не удалось выполнить временный вход");
     } finally {
       setIsSubmitting(false);

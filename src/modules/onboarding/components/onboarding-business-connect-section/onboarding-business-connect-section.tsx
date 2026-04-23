@@ -1,6 +1,5 @@
 import { OnboardingStepHeader } from "@/modules/onboarding/components/onboarding-step-header";
 import { businessConnectSteps } from "@/modules/onboarding/constants/business-connect-steps";
-import { Button } from "@/shared/components/ui/button";
 import { ButtonLink } from "@/shared/components/ui/button-link";
 import { cn } from "@/shared/lib/cn";
 
@@ -39,10 +38,10 @@ export const OnboardingBusinessConnectSection = () => {
       </ol>
 
       <div className="flex flex-col gap-3">
-        <Button className="w-full rounded-lg">
+        <ButtonLink href="/" className="w-full rounded-lg py-3">
           <span aria-hidden="true">✓</span>
           Я подключил, продолжить
-        </Button>
+        </ButtonLink>
         <ButtonLink
           href="/onboarding/bot"
           variant="secondary"

@@ -1,4 +1,5 @@
 import type { ButtonHTMLAttributes, ReactNode } from "react";
+import { cn } from "@/shared/lib/cn";
 
 type ButtonVariant = "primary" | "secondary" | "telegram";
 
@@ -30,11 +31,7 @@ export const Button = ({
   return (
     <button
       type={type}
-      className={
-        className
-          ? `${baseClassName} ${variantClassNames[variant]} ${className}`
-          : `${baseClassName} ${variantClassNames[variant]}`
-      }
+      className={cn(baseClassName, variantClassNames[variant], className)}
       {...props}
     >
       {children}

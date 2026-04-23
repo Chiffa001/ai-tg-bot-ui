@@ -13,13 +13,9 @@ import { Divider } from "@/shared/components/ui/divider";
 
 type AuthFormSectionProps = {
   mode: AuthMode;
-  nextPath?: string;
 };
 
-export const AuthFormSection = ({
-  mode,
-  nextPath,
-}: AuthFormSectionProps) => {
+export const AuthFormSection = ({ mode }: AuthFormSectionProps) => {
   const content = authFormModes[mode];
 
   return (
@@ -35,7 +31,7 @@ export const AuthFormSection = ({
             <p className="text-sm text-muted">{content.subtitle}</p>
           </div>
 
-          <AuthOauthButtons mode={mode} nextPath={nextPath} />
+          <AuthOauthButtons mode={mode} />
 
           <Divider className="mt-5">
             <span className="text-xs font-medium text-muted">или</span>
@@ -44,7 +40,6 @@ export const AuthFormSection = ({
           <AuthCredentialsForm
             mode={mode}
             submitLabel={content.submitLabel}
-            nextPath={nextPath}
           />
 
           <p className="mt-5 text-sm text-muted">

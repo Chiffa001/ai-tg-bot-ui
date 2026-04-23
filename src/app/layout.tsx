@@ -44,6 +44,7 @@ const RootLayout = ({
   return (
     <html
       lang="ru"
+      data-scroll-behavior="smooth"
       className={`${manrope.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>

@@ -1,20 +1,21 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { OnboardingBotTokenVisual } from "@/modules/onboarding/components/onboarding-bot-token-visual";
 import { OnboardingBusinessConnectVisual } from "@/modules/onboarding/components/onboarding-business-connect-visual";
-import type { OnboardingStepId } from "@/modules/onboarding/constants/onboarding-steps";
+import { onboardingSteps } from "@/modules/onboarding/constants/onboarding-steps";
+import { getActiveOnboardingStepIndex } from "@/modules/onboarding/lib/onboarding-step-helpers";
 import { VisualSidePanel } from "@/shared/components/page/visual-side-panel";
 
-type OnboardingVisualSectionProps = {
-  stepId: OnboardingStepId;
-  stepLabel: string;
-};
+export const OnboardingVisualSection = () => {
+  const pathname = usePathname();
+  const activeStepIndex = getActiveOnboardingStepIndex(pathname);
+  const activeStep = onboardingSteps[activeStepIndex];
+  const stepLabel = `Шаг ${activeStepIndex + 1} из ${onboardingSteps.length} — ${activeStep.description}`;
 
-export const OnboardingVisualSection = ({
-  stepId,
-  stepLabel,
-}: OnboardingVisualSectionProps) => {
   return (
     <VisualSidePanel className="items-center gap-10 px-8 py-12 lg:px-14 xl:px-15 xl:py-12">
-      {stepId === "business" ? (
+      {activeStep.id === "business" ? (
         <OnboardingBusinessConnectVisual />
       ) : (
         <OnboardingBotTokenVisual />
