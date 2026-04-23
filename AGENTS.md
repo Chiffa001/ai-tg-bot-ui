@@ -23,3 +23,7 @@ Typical module structure:
 Do not place feature-specific code into shared top-level folders unless it is genuinely reused across multiple modules.
 Shared reusable code should live in `src/shared`.
 Do not keep multiple components in the same file unless there is a very strong reason and it has been explicitly discussed.
+
+# UI Primitives
+
+Use Radix UI primitives (`@radix-ui/react-*`) selectively and only when needed for complex interactive elements (e.g. Switch, Select, Dialog). Do not install full UI kits like shadcn. Radix primitives are unstyled — always wrap them in custom components following the project's design system.
