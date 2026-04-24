@@ -1,11 +1,19 @@
-import { useTranslations } from "next-intl";
-import { ButtonLink } from "@/shared/components/ui/button-link";
 import { DefaultPageHeader } from "@/shared/components/page/default-page-header";
 import { DefaultPageWrapper } from "@/shared/components/page/default-page-wrapper";
 
-const NotFound = () => {
-  const t = useTranslations();
+type NotFoundPageProps = {
+  backHomeLabel: string;
+  description: string;
+  homeHref: `/${string}` | "/";
+  title: string;
+};
 
+export const NotFoundPage = ({
+  backHomeLabel,
+  description,
+  homeHref,
+  title,
+}: NotFoundPageProps) => {
   return (
     <DefaultPageWrapper>
       <DefaultPageHeader />
@@ -14,17 +22,18 @@ const NotFound = () => {
           404
         </span>
         <div className="flex flex-col gap-3">
-          <h1 className="text-[1.75rem] font-bold text-slate-950">
-            {t("errors.notFound.title")}
-          </h1>
+          <h1 className="text-[1.75rem] font-bold text-slate-950">{title}</h1>
           <p className="max-w-sm text-sm leading-relaxed text-muted">
-            {t("errors.notFound.description")}
+            {description}
           </p>
         </div>
-        <ButtonLink href="/">{t("errors.notFound.backHome")}</ButtonLink>
+        <a
+          href={homeHref}
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-accent px-5 py-3.5 text-sm font-semibold text-white duration-300 ease-out hover:bg-accent-strong"
+        >
+          {backHomeLabel}
+        </a>
       </div>
     </DefaultPageWrapper>
   );
 };
-
-export default NotFound;

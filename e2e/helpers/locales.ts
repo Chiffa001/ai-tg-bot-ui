@@ -2,6 +2,7 @@ export const localeCases = [
   {
     code: "ru",
     name: "Russian",
+    browserLocale: "ru-RU",
     labels: {
       back: /назад/i,
       businessHeading: /telegram business/i,
@@ -11,6 +12,8 @@ export const localeCases = [
       loginHeading: /войти/i,
       loginSubmit: "Войти",
       loginTitle: /Войти в аккаунт/,
+      notFoundTitle: /страница не найдена/i,
+      serverErrorTitle: /что-то пошло не так/i,
       progress: /прогресс/i,
       registerLink: /зарегистрироваться/i,
       registerTitle: /Создать аккаунт/,
@@ -22,6 +25,7 @@ export const localeCases = [
   {
     code: "en",
     name: "English",
+    browserLocale: "en-US",
     labels: {
       back: /back/i,
       businessHeading: /telegram business/i,
@@ -31,6 +35,8 @@ export const localeCases = [
       loginHeading: /log in/i,
       loginSubmit: "Log in",
       loginTitle: /Log in to your account/,
+      notFoundTitle: /page not found/i,
+      serverErrorTitle: /something went wrong/i,
       progress: /onboarding progress/i,
       registerLink: /sign up/i,
       registerTitle: /Create your account/,
@@ -42,6 +48,7 @@ export const localeCases = [
   {
     code: "pl",
     name: "Polish",
+    browserLocale: "pl-PL",
     labels: {
       back: /wstecz/i,
       businessHeading: /telegram business/i,
@@ -51,6 +58,8 @@ export const localeCases = [
       loginHeading: /zaloguj się/i,
       loginSubmit: "Zaloguj się",
       loginTitle: /Zaloguj się do konta/,
+      notFoundTitle: /nie znaleziono strony/i,
+      serverErrorTitle: /coś poszło nie tak/i,
       progress: /postęp onboardingu/i,
       registerLink: /zarejestruj się/i,
       registerTitle: /Utwórz konto/,

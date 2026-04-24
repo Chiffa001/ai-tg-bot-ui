@@ -1,18 +1,26 @@
 "use client";
 
-import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/navigation";
 import { Button } from "@/shared/components/ui/button";
 import { DefaultPageHeader } from "@/shared/components/page/default-page-header";
 import { DefaultPageWrapper } from "@/shared/components/page/default-page-wrapper";
 
 type ErrorPageProps = {
-  reset: () => void;
+  backHomeLabel: string;
+  description: string;
+  homeHref: `/${string}` | "/";
+  retryLabel: string;
+  title: string;
+  onRetryAction: () => void;
 };
 
-const ErrorPage = ({ reset }: ErrorPageProps) => {
-  const t = useTranslations();
-
+export const ErrorPage = ({
+  backHomeLabel,
+  description,
+  homeHref,
+  retryLabel,
+  title,
+  onRetryAction,
+}: ErrorPageProps) => {
   return (
     <DefaultPageWrapper>
       <DefaultPageHeader />
@@ -21,25 +29,21 @@ const ErrorPage = ({ reset }: ErrorPageProps) => {
           500
         </span>
         <div className="flex flex-col gap-3">
-          <h1 className="text-[1.75rem] font-bold text-slate-950">
-            {t("errors.server.title")}
-          </h1>
+          <h1 className="text-[1.75rem] font-bold text-slate-950">{title}</h1>
           <p className="max-w-sm text-sm leading-relaxed text-muted">
-            {t("errors.server.description")}
+            {description}
           </p>
         </div>
         <div className="flex flex-col items-center gap-3">
-          <Button onClick={reset}>{t("errors.server.retry")}</Button>
-          <Link
-            href="/"
+          <Button onClick={onRetryAction}>{retryLabel}</Button>
+          <a
+            href={homeHref}
             className="text-sm font-medium text-accent hover:text-accent-strong"
           >
-            {t("errors.server.backHome")}
-          </Link>
+            {backHomeLabel}
+          </a>
         </div>
       </div>
     </DefaultPageWrapper>
   );
 };
-
-export default ErrorPage;
