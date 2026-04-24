@@ -1,32 +1,35 @@
+import type { useTranslations } from "next-intl";
 import type { ChatMessage } from "@/shared/components/chat-preview/chat-message-row";
 
-export const chatPreviewMessages: readonly ChatMessage[] = [
+export const getChatPreviewMessages = (
+  t: ReturnType<typeof useTranslations<"welcome.chat">>,
+): readonly ChatMessage[] => [
   {
     avatar: "👤",
     align: "start",
     bubbleClassName:
       "rounded-[18px] rounded-tl-sm bg-slate-700 px-4 py-3 text-sm leading-6 text-slate-200",
-    text: "Здравствуйте! Сколько стоит доставка в Москву?",
+    text: t("customerQuestion"),
   },
   {
     avatar: "🤖",
     align: "end",
     bubbleClassName:
       "rounded-[18px] rounded-tr-sm bg-accent px-4 py-3 text-sm leading-6 text-white",
-    text: "Здравствуйте! Доставка в Москву стоит 350₽ и занимает 2-3 дня. Оформить заказ? 😊",
+    text: t("aiAnswer"),
   },
   {
     avatar: "👤",
     align: "start",
     bubbleClassName:
       "rounded-[18px] rounded-tl-sm bg-slate-700 px-4 py-3 text-sm leading-6 text-slate-200",
-    text: "Да, оформите, пожалуйста!",
+    text: t("customerConfirm"),
   },
   {
     avatar: "🤖",
     align: "end",
     bubbleClassName:
       "rounded-[18px] rounded-tr-sm bg-accent px-4 py-3 text-sm leading-6 text-white",
-    text: "Отлично! Заказ #4821 оформлен ✅ Трек-номер придёт в течение часа.",
+    text: t("aiResult"),
   },
 ] as const;

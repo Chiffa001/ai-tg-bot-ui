@@ -1,27 +1,30 @@
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { ArrowUpRightIcon } from "@/modules/welcome/components/icons/arrow-up-right-icon";
 import { ButtonLink } from "@/shared/components/ui/button-link";
 
 export const WelcomeCta = () => {
+  const t = useTranslations();
+
   return (
     <div className="mt-6 flex w-full flex-col gap-2.5">
       <ButtonLink
         href="/auth/register"
         className="w-full"
       >
-        Подключить бесплатно
+        {t("welcome.cta.primary")}
         <ArrowUpRightIcon />
       </ButtonLink>
       <p className="text-xs text-muted sm:text-sm">
-        5 дней бесплатно, затем $49/мес
+        {t("welcome.cta.caption")}
       </p>
       <p className="text-xs text-muted sm:text-sm">
-        Уже есть аккаунт?{" "}
+        {t("welcome.cta.loginPrompt")}{" "}
         <Link
           href="/auth/login"
           className="font-semibold text-accent hover:text-accent-strong"
         >
-          Войти
+          {t("welcome.cta.loginLink")}
         </Link>
       </p>
     </div>

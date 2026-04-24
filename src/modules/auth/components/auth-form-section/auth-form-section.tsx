@@ -1,6 +1,7 @@
-import Link from "next/link";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import {
-  authFormModes,
+  getAuthFormModeContent,
   type AuthMode,
 } from "@/modules/auth/constants/auth-form-modes";
 import { AuthCredentialsForm } from "@/modules/auth/components/auth-credentials-form";
@@ -16,7 +17,8 @@ type AuthFormSectionProps = {
 };
 
 export const AuthFormSection = ({ mode }: AuthFormSectionProps) => {
-  const content = authFormModes[mode];
+  const t = useTranslations("auth.form");
+  const content = getAuthFormModeContent(t, mode);
 
   return (
     <AuthRouteWrapper mode={mode}>
@@ -34,7 +36,9 @@ export const AuthFormSection = ({ mode }: AuthFormSectionProps) => {
           <AuthOauthButtons mode={mode} />
 
           <Divider className="mt-5">
-            <span className="text-xs font-medium text-muted">или</span>
+            <span className="text-xs font-medium text-muted">
+              {t("or")}
+            </span>
           </Divider>
 
           <AuthCredentialsForm

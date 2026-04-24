@@ -1,7 +1,8 @@
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import { botTokenHelpSteps } from "@/modules/onboarding/constants/bot-token-help-steps";
+import { useTranslations } from "next-intl";
+import { getBotTokenHelpSteps } from "@/modules/onboarding/constants/bot-token-help-steps";
 
 type OnboardingHelpModalProps = {
   onCloseAction: () => void;
@@ -12,6 +13,9 @@ export const OnboardingHelpModal = ({
   onCloseAction,
   open,
 }: OnboardingHelpModalProps) => {
+  const t = useTranslations("onboarding.bot.help");
+  const botTokenHelpSteps = getBotTokenHelpSteps(t);
+
   return (
     <Dialog.Root open={open} onOpenChange={(isOpen) => !isOpen && onCloseAction()}>
       <Dialog.Portal>
@@ -24,15 +28,15 @@ export const OnboardingHelpModal = ({
                   BotFather
                 </p>
                 <Dialog.Title className="mt-2 text-2xl font-bold tracking-tight text-slate-950">
-                  Как получить токен
+                  {t("title")}
                 </Dialog.Title>
                 <Dialog.Description className="sr-only">
-                  Пошаговая инструкция по получению токена бота через BotFather в Telegram
+                  {t("description")}
                 </Dialog.Description>
               </div>
               <Dialog.Close
                 className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-lg text-slate-500 hover:border-slate-300 hover:text-slate-950"
-                aria-label="Закрыть инструкцию"
+                aria-label={t("close")}
               >
                 ×
               </Dialog.Close>

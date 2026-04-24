@@ -1,9 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
+import { useRouter } from "@/i18n/navigation";
+import { normalizeInternalPath } from "@/i18n/routing";
 import type { AuthMode } from "@/modules/auth/constants/auth-form-modes";
 import { createMockSession } from "@/modules/auth/api/create-mock-session";
 import { authCredentialsSchema, type AuthCredentialsData } from "@/modules/auth/schemas/auth-credentials-schema";
@@ -26,13 +29,15 @@ export const AuthCredentialsForm = ({
 }: AuthCredentialsFormProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const t = useTranslations("auth.form");
+  const tValidation = useTranslations("auth.validation");
   const nextPath = searchParams.get("next");
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 
   const { register, handleSubmit, formState: { errors } } = useForm<AuthCredentialsData>({
-    resolver: standardSchemaResolver(authCredentialsSchema(mode)),
+    resolver: standardSchemaResolver(authCredentialsSchema(mode, tValidation)),
   });
 
   const onSubmit = async () => {
@@ -45,14 +50,14 @@ export const AuthCredentialsForm = ({
         provider: "credentials",
       });
 
-      const destination =
-        nextPath && nextPath.startsWith("/") ? nextPath : "/onboarding/bot";
+      const destination = normalizeInternalPath(nextPath ?? "");
+      const safeDestination = destination ?? "/onboarding/bot";
 
-      router.push(destination);
+      router.push(safeDestination);
       router.refresh();
     } catch (error) {
       console.error("[auth] Failed to create mock session:", error);
-      setSubmitError("Не удалось выполнить временный вход");
+      setSubmitError(t("submitError"));
     } finally {
       setIsSubmitting(false);
     }
@@ -79,12 +84,20 @@ export const AuthCredentialsForm = ({
         autoComplete={mode === "login" ? "current-password" : "new-password"}
         error={errors.password?.message}
         disabled={isSubmitting}
-        label="Пароль"
+        label={t("passwordLabel")}
         leadingAdornment={<LockIcon />}
-        placeholder={mode === "login" ? "Введите пароль" : "Минимум 8 символов"}
+        placeholder={
+          mode === "login"
+            ? t("passwordPlaceholderLogin")
+            : t("passwordPlaceholderRegister")
+        }
         trailingAdornment={
           <ButtonIcon
-            aria-label={isPasswordVisible ? "Скрыть пароль" : "Показать пароль"}
+            aria-label={
+              isPasswordVisible
+                ? t("hidePassword")
+                : t("showPassword")
+            }
             disabled={isSubmitting}
             onClick={() => setIsPasswordVisible((current) => !current)}
           >
@@ -97,7 +110,7 @@ export const AuthCredentialsForm = ({
         <p className="-mt-1 text-sm text-red-500">{submitError}</p>
       ) : null}
       <Button type="submit" className="mt-1 w-full" disabled={isSubmitting}>
-        {isSubmitting ? "Выполняем вход..." : submitLabel}
+        {isSubmitting ? t("submitting") : submitLabel}
       </Button>
     </form>
   );

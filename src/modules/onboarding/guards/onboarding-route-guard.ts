@@ -1,4 +1,5 @@
 import type { NextRequest } from "next/server";
+import { stripLocaleFromPathname } from "@/i18n/routing";
 import { ONBOARDING_BOT_TOKEN_COMPLETED_COOKIE } from "@/modules/onboarding/constants/onboarding-cookies";
 
 const onboardingRouteRequirements = [
@@ -25,8 +26,9 @@ const getSkippedStepPath = (
 };
 
 export const getSkippedOnboardingStepPath = (request: NextRequest) => {
-  return getSkippedStepPath(request.nextUrl.pathname, (cookieName) =>
-    Boolean(request.cookies.get(cookieName)?.value),
+  return getSkippedStepPath(
+    stripLocaleFromPathname(request.nextUrl.pathname),
+    (cookieName) => Boolean(request.cookies.get(cookieName)?.value),
   );
 };
 

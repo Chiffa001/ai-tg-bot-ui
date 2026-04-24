@@ -1,8 +1,9 @@
-import { onboardingSteps } from "@/modules/onboarding/constants/onboarding-steps";
+import { onboardingPathnames } from "@/modules/onboarding/constants/onboarding-steps";
 
 export const getActiveOnboardingStepIndex = (pathname: string) => {
-  const activeStepIndex = onboardingSteps.findIndex(
-    (step) => pathname === step.href || pathname.startsWith(`${step.href}/`),
+  const activeStepIndex = onboardingPathnames.findIndex(
+    (stepPathname) =>
+      pathname === stepPathname || pathname.startsWith(`${stepPathname}/`),
   );
 
   return activeStepIndex >= 0 ? activeStepIndex : 0;

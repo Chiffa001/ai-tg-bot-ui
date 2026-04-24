@@ -1,17 +1,20 @@
 "use client";
 
-import { usePathname } from "next/navigation";
-import { onboardingSteps } from "@/modules/onboarding/constants/onboarding-steps";
+import { useTranslations } from "next-intl";
+import { usePathname } from "@/i18n/navigation";
+import { getOnboardingSteps } from "@/modules/onboarding/constants/onboarding-steps";
 import { getActiveOnboardingStepIndex } from "@/modules/onboarding/lib/onboarding-step-helpers";
 import { cn } from "@/shared/lib/cn";
 
 export const OnboardingStepIndicator = () => {
+  const t = useTranslations("onboarding.steps");
   const pathname = usePathname();
+  const onboardingSteps = getOnboardingSteps(t);
   const currentIndex = getActiveOnboardingStepIndex(pathname);
 
   return (
     <nav
-      aria-label="Прогресс онбординга"
+      aria-label={t("ariaLabel")}
       className="flex w-full items-center gap-3"
     >
       {onboardingSteps.map((step, index) => {

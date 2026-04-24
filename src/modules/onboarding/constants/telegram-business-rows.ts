@@ -1,27 +1,31 @@
-export const telegramBusinessRows = [
-  {
-    active: false,
-    icon: "⌖",
-    label: "Location",
-  },
-  {
-    active: false,
-    icon: "◷",
-    label: "Opening Hours",
-  },
-  {
-    active: true,
-    icon: "◈",
-    label: "Chatbots",
-  },
-  {
-    active: false,
-    icon: "◌",
-    label: "Greeting Message",
-  },
-  {
-    active: false,
-    icon: "♟",
-    label: "Away Message",
-  },
-] as const;
+import type { useTranslations } from "next-intl";
+
+export const getTelegramBusinessRows = (t: ReturnType<typeof useTranslations<"onboarding.business.visual">>) => {
+  return [
+    {
+      active: false,
+      icon: "⌖",
+      label: t("rows.location"),
+    },
+    {
+      active: false,
+      icon: "◷",
+      label: t("rows.openingHours"),
+    },
+    {
+      active: true,
+      icon: "◈",
+      label: t("rows.chatbots"),
+    },
+    {
+      active: false,
+      icon: "◌",
+      label: t("rows.greetingMessage"),
+    },
+    {
+      active: false,
+      icon: "♟",
+      label: t("rows.awayMessage"),
+    },
+  ] as const;
+};

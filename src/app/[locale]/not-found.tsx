@@ -1,8 +1,11 @@
+import { useTranslations } from "next-intl";
 import { ButtonLink } from "@/shared/components/ui/button-link";
 import { DefaultPageHeader } from "@/shared/components/page/default-page-header";
 import { DefaultPageWrapper } from "@/shared/components/page/default-page-wrapper";
 
 const NotFound = () => {
+  const t = useTranslations();
+
   return (
     <DefaultPageWrapper>
       <DefaultPageHeader />
@@ -12,13 +15,13 @@ const NotFound = () => {
         </span>
         <div className="flex flex-col gap-3">
           <h1 className="text-[1.75rem] font-bold text-slate-950">
-            Страница не найдена
+            {t("errors.notFound.title")}
           </h1>
           <p className="max-w-sm text-sm leading-relaxed text-muted">
-            Возможно, ссылка устарела или вы допустили опечатку в адресе.
+            {t("errors.notFound.description")}
           </p>
         </div>
-        <ButtonLink href="/">Вернуться на главную</ButtonLink>
+        <ButtonLink href="/">{t("errors.notFound.backHome")}</ButtonLink>
       </div>
     </DefaultPageWrapper>
   );

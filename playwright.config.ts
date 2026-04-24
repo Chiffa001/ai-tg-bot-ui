@@ -23,8 +23,13 @@ export default defineConfig({
       testIgnore: "**/screenshots.spec.ts",
     },
     {
-      name: "screenshots",
+      name: "screenshots-desktop",
       use: { ...devices["Desktop Chrome"] },
+      testMatch: "**/screenshots.spec.ts",
+    },
+    {
+      name: "screenshots-mobile",
+      use: { ...devices["Pixel 5"] },
       testMatch: "**/screenshots.spec.ts",
     },
   ],

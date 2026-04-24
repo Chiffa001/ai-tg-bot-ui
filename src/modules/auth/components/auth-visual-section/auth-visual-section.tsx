@@ -1,6 +1,7 @@
+import { useTranslations } from "next-intl";
 import {
-  authVisualModes,
-  authVisualStats,
+  getAuthVisualModeContent,
+  getAuthVisualStats,
   type AuthVisualMode,
 } from "@/modules/auth/constants/auth-visual-modes";
 import { AuthStat } from "@/modules/auth/components/auth-stat";
@@ -12,7 +13,9 @@ type AuthVisualSectionProps = {
 };
 
 export const AuthVisualSection = ({ mode }: AuthVisualSectionProps) => {
-  const content = authVisualModes[mode];
+  const t = useTranslations("auth.visual");
+  const content = getAuthVisualModeContent(t, mode);
+  const authVisualStats = getAuthVisualStats(t);
 
   return (
     <VisualSidePanel className="hidden items-center gap-10 px-8 py-12 xl:flex lg:px-14 xl:px-15 xl:py-12">

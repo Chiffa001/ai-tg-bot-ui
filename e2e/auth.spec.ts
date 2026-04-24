@@ -1,77 +1,108 @@
 import { test, expect } from "@playwright/test";
 import { setAuthCookies } from "./helpers/auth";
+import { localeCases } from "./helpers/locales";
 
-test.describe("Auth — guards", () => {
-  test("неавторизованный пользователь → редирект на /auth/login", async ({ page }) => {
-    await page.goto("/onboarding/bot");
-    await expect(page).toHaveURL(/\/auth\/login\?next=/);
+for (const localeCase of localeCases) {
+  test.describe(`Auth — guards — ${localeCase.name}`, () => {
+    test("неавторизованный пользователь → редирект на /auth/login", async ({ page }) => {
+      await page.goto(`/${localeCase.code}/onboarding/bot`);
+      await expect(page).toHaveURL(
+        new RegExp(`/${localeCase.code}/auth/login\\?next=`),
+      );
+    });
+
+    test("авторизованный пользователь → редирект с /auth/login на онбординг", async ({
+      page,
+      context,
+    }) => {
+      await setAuthCookies(context);
+      await page.goto(`/${localeCase.code}/auth/login`);
+      await expect(page).toHaveURL(
+        new RegExp(`/${localeCase.code}/onboarding/`),
+      );
+    });
+
+    test("авторизованный пользователь → редирект с /auth/register на онбординг", async ({
+      page,
+      context,
+    }) => {
+      await setAuthCookies(context);
+      await page.goto(`/${localeCase.code}/auth/register`);
+      await expect(page).toHaveURL(
+        new RegExp(`/${localeCase.code}/onboarding/`),
+      );
+    });
   });
 
-  test("авторизованный пользователь → редирект с /auth/login на онбординг", async ({
-    page,
-    context,
-  }) => {
-    await setAuthCookies(context);
-    await page.goto("/auth/login");
-    await expect(page).toHaveURL(/\/onboarding/);
-  });
+  test.describe(`Auth — страница входа — ${localeCase.name}`, () => {
+    test("отображает форму логина", async ({ page }) => {
+      await page.goto(`/${localeCase.code}/auth/login`);
+      await expect(
+        page.getByRole("heading", { name: localeCase.labels.loginHeading }),
+      ).toBeVisible();
+      await expect(page.getByLabel(/email/i)).toBeVisible();
+      await expect(page.locator('input[name="password"]')).toBeVisible();
+    });
 
-  test("авторизованный пользователь → редирект с /auth/register на онбординг", async ({
-    page,
-    context,
-  }) => {
-    await setAuthCookies(context);
-    await page.goto("/auth/register");
-    await expect(page).toHaveURL(/\/onboarding/);
-  });
-});
+    test("title страницы — login", async ({ page }) => {
+      await page.goto(`/${localeCase.code}/auth/login`);
+      await expect(page).toHaveTitle(localeCase.labels.loginTitle);
+    });
 
-test.describe("Auth — страница входа", () => {
-  test("отображает форму логина", async ({ page }) => {
-    await page.goto("/auth/login");
-    await expect(page.getByRole("heading", { name: /войти/i })).toBeVisible();
-    await expect(page.getByLabel(/email/i)).toBeVisible();
-    await expect(page.locator('input[name="password"]')).toBeVisible();
-  });
+    test("title страницы регистрации — register", async ({ page }) => {
+      await page.goto(`/${localeCase.code}/auth/register`);
+      await expect(page).toHaveTitle(localeCase.labels.registerTitle);
+    });
 
-  test("title страницы — Войти в аккаунт", async ({ page }) => {
-    await page.goto("/auth/login");
-    await expect(page).toHaveTitle(/Войти в аккаунт/);
-  });
+    test("показывает ошибку при пустой форме", async ({ page }) => {
+      await page.goto(`/${localeCase.code}/auth/login`);
+      await page
+        .getByRole("button", {
+          name: localeCase.labels.loginSubmit,
+          exact: true,
+        })
+        .click();
+      await expect(page.locator("form")).toContainText(/.+/);
+    });
 
-  test("title страницы регистрации — Создать аккаунт", async ({ page }) => {
-    await page.goto("/auth/register");
-    await expect(page).toHaveTitle(/Создать аккаунт/);
-  });
+    test("успешный вход → переход на онбординг", async ({ page }) => {
+      await page.goto(`/${localeCase.code}/auth/login`);
+      await page.getByLabel(/email/i).fill("test@example.com");
+      await page.locator('input[name="password"]').fill("password123");
+      await page
+        .getByRole("button", {
+          name: localeCase.labels.loginSubmit,
+          exact: true,
+        })
+        .click();
+      await expect(page).toHaveURL(
+        new RegExp(`/${localeCase.code}/onboarding/`),
+        { timeout: 5000 },
+      );
+    });
 
-  test("показывает ошибку при пустой форме", async ({ page }) => {
-    await page.goto("/auth/login");
-    await page.getByRole("button", { name: "Войти", exact: true }).click();
-    await expect(page.locator("form")).toContainText(/.+/);
-  });
+    test("кнопка Telegram → переход на онбординг", async ({ page }) => {
+      await page.goto(`/${localeCase.code}/auth/login`);
+      await page.getByRole("button", { name: /telegram/i }).click();
+      await expect(page).toHaveURL(
+        new RegExp(`/${localeCase.code}/onboarding/`),
+        { timeout: 5000 },
+      );
+    });
 
-  test("успешный вход → переход на онбординг", async ({ page }) => {
-    await page.goto("/auth/login");
-    await page.getByLabel(/email/i).fill("test@example.com");
-    await page.locator('input[name="password"]').fill("password123");
-    await page.getByRole("button", { name: "Войти", exact: true }).click();
-    await expect(page).toHaveURL(/\/onboarding/, { timeout: 5000 });
-  });
+    test("ссылка на регистрацию работает", async ({ page }) => {
+      await page.goto(`/${localeCase.code}/auth/login`);
+      await page
+        .getByRole("link", { name: localeCase.labels.registerLink })
+        .click();
+      await expect(page).toHaveURL(
+        new RegExp(`/${localeCase.code}/auth/register`),
+      );
+    });
 
-  test("кнопка Войти через Telegram → переход на онбординг", async ({ page }) => {
-    await page.goto("/auth/login");
-    await page.getByRole("button", { name: /telegram/i }).click();
-    await expect(page).toHaveURL(/\/onboarding/, { timeout: 5000 });
+    test("на мобилке визуальная панель скрыта, форма видна", async ({ page }) => {
+      await page.goto(`/${localeCase.code}/auth/login`);
+      await expect(page.getByLabel(/email/i)).toBeVisible();
+    });
   });
-
-  test("ссылка на регистрацию работает", async ({ page }) => {
-    await page.goto("/auth/login");
-    await page.getByRole("link", { name: /зарегистрироваться/i }).click();
-    await expect(page).toHaveURL(/\/auth\/register/);
-  });
-
-  test("на мобилке визуальная панель скрыта, форма видна", async ({ page }) => {
-    await page.goto("/auth/login");
-    await expect(page.getByLabel(/email/i)).toBeVisible();
-  });
-});
+}

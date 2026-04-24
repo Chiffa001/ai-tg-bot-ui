@@ -1,40 +1,32 @@
+import type { useTranslations } from "next-intl";
+
 export type AuthVisualMode = "login" | "register";
 
-export const authVisualModes = {
-  login: {
-    heading: "С возвращением!",
-    logoSize: "lg",
-    subtitle: "Ваш ИИ-ассистент ждёт вас",
-    type: "hero",
-  },
-  register: {
-    author: "Алексей К., интернет-магазин",
-    logoSize: "md",
-    quote:
-      "«Подключил за 5 минут, теперь ИИ отвечает клиентам даже ночью. Продажи выросли на 30%»",
-    type: "quote",
-  },
-} as const satisfies Record<
-  AuthVisualMode,
-  {
-    logoSize: "md" | "lg";
-    type: "hero" | "quote";
-  } & (
-    | {
-        heading: string;
-        subtitle: string;
-        type: "hero";
-      }
-    | {
-        author: string;
-        quote: string;
-        type: "quote";
-      }
-  )
->;
+export const getAuthVisualModeContent = (
+  t: ReturnType<typeof useTranslations<"auth.visual">>,
+  mode: AuthVisualMode,
+) => {
+  if (mode === "login") {
+    return {
+      heading: t("login.heading"),
+      logoSize: "lg" as const,
+      subtitle: t("login.subtitle"),
+      type: "hero" as const,
+    };
+  }
 
-export const authVisualStats = [
-  { value: "500+", label: "бизнесов" },
-  { value: "50K+", label: "сообщений/день" },
-  { value: "99.9%", label: "аптайм" },
-] as const;
+  return {
+    author: t("register.author"),
+    logoSize: "md" as const,
+    quote: t("register.quote"),
+    type: "quote" as const,
+  };
+};
+
+export const getAuthVisualStats = (t: ReturnType<typeof useTranslations<"auth.visual">>) => {
+  return [
+    { value: "500+", label: t("stats.businesses") },
+    { value: "50K+", label: t("stats.messagesPerDay") },
+    { value: "99.9%", label: t("stats.uptime") },
+  ] as const;
+};

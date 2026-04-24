@@ -1,26 +1,30 @@
-export const businessConnectSteps = [
-  {
-    icon: "⚙",
-    iconClassName: "text-2xl",
-    subtitle: "Telegram → Настройки",
-    title: "Откройте Настройки",
-  },
-  {
-    icon: "▣",
-    iconClassName: "text-xl",
-    subtitle: "Перейдите в раздел «Telegram Business»",
-    title: "Telegram Business",
-  },
-  {
-    icon: "⌘",
-    iconClassName: "text-xl",
-    subtitle: "Откройте раздел управления чат-ботами",
-    title: "Выберите «Chatbots»",
-  },
-  {
-    icon: "⌕",
-    iconClassName: "text-2xl",
-    subtitle: "Найдите и выберите @username вашего бота",
-    title: "Найдите вашего бота",
-  },
-] as const;
+import type { useTranslations } from "next-intl";
+
+export const getBusinessConnectSteps = (t: ReturnType<typeof useTranslations<"onboarding.business">>) => {
+  return [
+    {
+      icon: "⚙",
+      iconClassName: "text-2xl",
+      subtitle: t("steps.settings.subtitle"),
+      title: t("steps.settings.title"),
+    },
+    {
+      icon: "▣",
+      iconClassName: "text-xl",
+      subtitle: t("steps.business.subtitle"),
+      title: t("steps.business.title"),
+    },
+    {
+      icon: "⌘",
+      iconClassName: "text-xl",
+      subtitle: t("steps.chatbots.subtitle"),
+      title: t("steps.chatbots.title"),
+    },
+    {
+      icon: "⌕",
+      iconClassName: "text-2xl",
+      subtitle: t("steps.findBot.subtitle"),
+      title: t("steps.findBot.title"),
+    },
+  ] as const;
+};

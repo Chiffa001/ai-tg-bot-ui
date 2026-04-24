@@ -1,6 +1,12 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import {
+  localizePathname,
+  normalizeInternalPath,
+  stripLocaleFromPathname,
+  type AppLocale,
+} from "@/i18n/routing";
+import {
   ACCESS_TOKEN_COOKIE,
   REFRESH_TOKEN_COOKIE,
 } from "@/modules/auth/constants/auth-cookies";
@@ -38,9 +44,11 @@ const startsWithAny = (pathname: string, prefixes: readonly string[]) => {
 };
 
 const getSafeAuthenticatedPath = (request: NextRequest) => {
-  const nextPath = request.nextUrl.searchParams.get("next");
+  const nextPath = normalizeInternalPath(
+    request.nextUrl.searchParams.get("next") ?? "",
+  );
 
-  if (!nextPath?.startsWith("/") || startsWithAny(nextPath, guestOnlyPathPrefixes)) {
+  if (!nextPath || startsWithAny(nextPath, guestOnlyPathPrefixes)) {
     return DEFAULT_AUTHENTICATED_PATH;
   }
 
@@ -53,12 +61,21 @@ const getSafeAuthenticatedPath = (request: NextRequest) => {
   return nextPath;
 };
 
-export const guardAuthRoutes = (request: NextRequest) => {
-  const { pathname, search } = request.nextUrl;
+const getLocalizedUrl = (
+  request: NextRequest,
+  locale: AppLocale,
+  pathname: string,
+) => {
+  return new URL(localizePathname(pathname, locale), request.url);
+};
+
+export const guardAuthRoutes = (request: NextRequest, locale: AppLocale) => {
+  const { search } = request.nextUrl;
+  const pathname = stripLocaleFromPathname(request.nextUrl.pathname);
   const authorized = isAuthorized(request);
 
   if (startsWithAny(pathname, protectedPathPrefixes) && !authorized) {
-    const loginUrl = new URL(LOGIN_PATH, request.url);
+    const loginUrl = getLocalizedUrl(request, locale, LOGIN_PATH);
 
     loginUrl.searchParams.set("next", `${pathname}${search}`);
 
@@ -69,13 +86,17 @@ export const guardAuthRoutes = (request: NextRequest) => {
     const skippedStepPath = getSkippedOnboardingStepPath(request);
 
     if (skippedStepPath && skippedStepPath !== pathname) {
-      return NextResponse.redirect(new URL(skippedStepPath, request.url));
+      return NextResponse.redirect(
+        getLocalizedUrl(request, locale, skippedStepPath),
+      );
     }
   }
 
   if (startsWithAny(pathname, guestOnlyPathPrefixes) && authorized) {
-    return NextResponse.redirect(new URL(getSafeAuthenticatedPath(request), request.url));
+    return NextResponse.redirect(
+      getLocalizedUrl(request, locale, getSafeAuthenticatedPath(request)),
+    );
   }
 
-  return NextResponse.next();
+  return null;
 };

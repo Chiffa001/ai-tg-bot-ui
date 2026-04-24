@@ -35,120 +35,149 @@ const getRedirectLocation = (response: Response) => {
 
 describe("auth route guard", () => {
   it("редиректит protected onboarding route на login без токенов", () => {
-    const response = guardAuthRoutes(createRequest("/onboarding/business"));
+    const response = guardAuthRoutes(createRequest("/ru/onboarding/business"), "ru");
 
-    expect(response.status).toBe(307);
-    expect(getRedirectLocation(response)).toBe(
-      "http://localhost:3000/auth/login?next=%2Fonboarding%2Fbusiness",
+    expect(response).not.toBeNull();
+    expect(response!.status).toBe(307);
+    expect(getRedirectLocation(response!)).toBe(
+      "http://localhost:3000/ru/auth/login?next=%2Fonboarding%2Fbusiness",
     );
   });
 
   it("сохраняет query string в next при protected redirect", () => {
-    const response = guardAuthRoutes(createRequest("/onboarding/business?foo=bar"));
+    const response = guardAuthRoutes(
+      createRequest("/ru/onboarding/business?foo=bar"),
+      "ru",
+    );
 
-    expect(getRedirectLocation(response)).toBe(
-      "http://localhost:3000/auth/login?next=%2Fonboarding%2Fbusiness%3Ffoo%3Dbar",
+    expect(getRedirectLocation(response!)).toBe(
+      "http://localhost:3000/ru/auth/login?next=%2Fonboarding%2Fbusiness%3Ffoo%3Dbar",
     );
   });
 
   it("разрешает первый onboarding step при наличии токенов", () => {
     const response = guardAuthRoutes(
-      createRequest("/onboarding/bot", { cookies: authCookies }),
+      createRequest("/ru/onboarding/bot", { cookies: authCookies }),
+      "ru",
     );
 
-    expect(response.status).toBe(200);
-    expect(getRedirectLocation(response)).toBeNull();
+    expect(response).toBeNull();
   });
 
   it("разрешает первый onboarding step при наличии auth headers", () => {
     const response = guardAuthRoutes(
-      createRequest("/onboarding/bot", {
+      createRequest("/ru/onboarding/bot", {
         headers: {
           authorization: "Bearer access-token",
           "x-refresh-token": "refresh-token",
         },
       }),
+      "ru",
     );
 
-    expect(response.status).toBe(200);
-    expect(getRedirectLocation(response)).toBeNull();
+    expect(response).toBeNull();
   });
 
   it("возвращает на первый onboarding step, если business открыт без prerequisite", () => {
     const response = guardAuthRoutes(
-      createRequest("/onboarding/business", { cookies: authCookies }),
+      createRequest("/ru/onboarding/business", { cookies: authCookies }),
+      "ru",
     );
 
-    expect(response.status).toBe(307);
-    expect(getRedirectLocation(response)).toBe(
-      "http://localhost:3000/onboarding/bot",
+    expect(response).not.toBeNull();
+    expect(response!.status).toBe(307);
+    expect(getRedirectLocation(response!)).toBe(
+      "http://localhost:3000/ru/onboarding/bot",
     );
   });
 
   it("разрешает business при наличии токенов и prerequisite cookie", () => {
     const response = guardAuthRoutes(
-      createRequest("/onboarding/business", {
+      createRequest("/ru/onboarding/business", {
         cookies: {
           ...authCookies,
           [ONBOARDING_BOT_TOKEN_COMPLETED_COOKIE]: "true",
         },
       }),
+      "ru",
     );
 
-    expect(response.status).toBe(200);
-    expect(getRedirectLocation(response)).toBeNull();
+    expect(response).toBeNull();
   });
 
   it("редиректит auth routes на onboarding bot при наличии токенов", () => {
     const response = guardAuthRoutes(
-      createRequest("/auth/login", { cookies: authCookies }),
+      createRequest("/ru/auth/login", { cookies: authCookies }),
+      "ru",
     );
 
-    expect(response.status).toBe(307);
-    expect(getRedirectLocation(response)).toBe(
-      "http://localhost:3000/onboarding/bot",
+    expect(response).not.toBeNull();
+    expect(response!.status).toBe(307);
+    expect(getRedirectLocation(response!)).toBe(
+      "http://localhost:3000/ru/onboarding/bot",
     );
   });
 
   it("редиректит auth routes на safe next path при наличии prerequisite", () => {
     const response = guardAuthRoutes(
-      createRequest("/auth/login?next=/onboarding/business", {
+      createRequest("/ru/auth/login?next=/onboarding/business", {
         cookies: {
           ...authCookies,
           [ONBOARDING_BOT_TOKEN_COMPLETED_COOKIE]: "true",
         },
       }),
+      "ru",
     );
 
-    expect(response.status).toBe(307);
-    expect(getRedirectLocation(response)).toBe(
-      "http://localhost:3000/onboarding/business",
+    expect(response).not.toBeNull();
+    expect(response!.status).toBe(307);
+    expect(getRedirectLocation(response!)).toBe(
+      "http://localhost:3000/ru/onboarding/business",
     );
   });
 
   it("редиректит auth routes на первый пропущенный шаг, если next path недоступен", () => {
     const response = guardAuthRoutes(
-      createRequest("/auth/login?next=/onboarding/business", {
+      createRequest("/ru/auth/login?next=/onboarding/business", {
         cookies: authCookies,
       }),
+      "ru",
     );
 
-    expect(response.status).toBe(307);
-    expect(getRedirectLocation(response)).toBe(
-      "http://localhost:3000/onboarding/bot",
+    expect(response).not.toBeNull();
+    expect(response!.status).toBe(307);
+    expect(getRedirectLocation(response!)).toBe(
+      "http://localhost:3000/ru/onboarding/bot",
     );
   });
 
   it("игнорирует unsafe next path на auth route", () => {
     const response = guardAuthRoutes(
-      createRequest("/auth/login?next=https://example.com", {
+      createRequest("/ru/auth/login?next=https://example.com", {
         cookies: authCookies,
       }),
+      "ru",
     );
 
-    expect(response.status).toBe(307);
-    expect(getRedirectLocation(response)).toBe(
-      "http://localhost:3000/onboarding/bot",
+    expect(response).not.toBeNull();
+    expect(response!.status).toBe(307);
+    expect(getRedirectLocation(response!)).toBe(
+      "http://localhost:3000/ru/onboarding/bot",
+    );
+  });
+
+  it("игнорирует protocol-relative next path на auth route", () => {
+    const response = guardAuthRoutes(
+      createRequest("/ru/auth/login?next=//evil.com", {
+        cookies: authCookies,
+      }),
+      "ru",
+    );
+
+    expect(response).not.toBeNull();
+    expect(response!.status).toBe(307);
+    expect(getRedirectLocation(response!)).toBe(
+      "http://localhost:3000/ru/onboarding/bot",
     );
   });
 });

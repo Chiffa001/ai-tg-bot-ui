@@ -1,0 +1,218 @@
+{
+  "metadata": {
+    "title": "AI Manager for Telegram Business",
+    "description": "AI autoresponder for Telegram Business: replies to customers 24/7, connects in 5 minutes, and helps you stop losing leads.",
+    "openGraphDescription": "Automatic 24/7 replies, handoff to a manager, and fast no-code setup."
+  },
+  "shared": {
+    "chatPreview": {
+      "badge": "AI Assistant • Online"
+    }
+  },
+  "errors": {
+    "server": {
+      "title": "Something went wrong",
+      "description": "We already know about the issue and are working on a fix. Please refresh the page in a minute.",
+      "retry": "Refresh page",
+      "backHome": "Back to home"
+    },
+    "notFound": {
+      "title": "Page not found",
+      "description": "The link may be outdated, or there may be a typo in the address.",
+      "backHome": "Back to home"
+    }
+  },
+  "welcome": {
+    "hero": {
+      "badge": "Telegram Business SaaS",
+      "title": "AI Manager for Telegram Business",
+      "description": "Replies to customers 24/7 while you stay focused on work. Connect it in 5 minutes and stop losing leads in Telegram."
+    },
+    "cta": {
+      "primary": "Start for free",
+      "caption": "5 days free, then $49/mo",
+      "loginPrompt": "Already have an account?",
+      "loginLink": "Log in"
+    },
+    "trust": {
+      "trial": "Free trial",
+      "noCard": "No card required",
+      "setup": "5 min setup"
+    },
+    "features": {
+      "autoReplies": "24/7 auto replies",
+      "smartAi": "Smart AI",
+      "noCode": "No code"
+    },
+    "metrics": {
+      "firstReplyValue": "3 sec",
+      "firstReplyLabel": "average first reply",
+      "launchValue": "5 min",
+      "launchLabel": "to launch the bot",
+      "availabilityLabel": "customers always get a reply"
+    },
+    "chat": {
+      "customerQuestion": "Hi! How much is delivery to Warsaw?",
+      "aiAnswer": "Hi! Delivery to Warsaw costs 35 PLN and takes 2-3 days. Would you like me to place the order? 😊",
+      "customerConfirm": "Yes, please place it!",
+      "aiResult": "Perfect! Order #4821 has been created ✅ The tracking number will arrive within an hour."
+    }
+  },
+  "auth": {
+    "form": {
+      "or": "or",
+      "submitError": "Temporary sign-in failed",
+      "passwordLabel": "Password",
+      "passwordPlaceholderLogin": "Enter your password",
+      "passwordPlaceholderRegister": "At least 8 characters",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "submitting": "Signing you in...",
+      "login": {
+        "heading": "Log in to your account",
+        "submitLabel": "Log in",
+        "subtitle": "Continue automating replies in Telegram",
+        "toggleLabel": "No account yet?",
+        "toggleLinkLabel": "Sign up"
+      },
+      "register": {
+        "heading": "Create your account",
+        "submitLabel": "Sign up",
+        "subtitle": "Start automating replies in Telegram",
+        "toggleLabel": "Already have an account?",
+        "toggleLinkLabel": "Log in"
+      }
+    },
+    "oauth": {
+      "telegram": "Continue with Telegram",
+      "telegramConnecting": "Connecting Telegram...",
+      "google": "Continue with Google",
+      "googleConnecting": "Connecting Google..."
+    },
+    "validation": {
+      "invalidEmail": "Invalid email address",
+      "passwordMin": "At least 8 characters",
+      "passwordRequired": "Enter your password"
+    },
+    "visual": {
+      "login": {
+        "heading": "Welcome back!",
+        "subtitle": "Your AI assistant is waiting for you"
+      },
+      "register": {
+        "author": "Alex K., online store",
+        "quote": "\"Set it up in 5 minutes, and now AI answers customers even at night. Sales are up 30%.\""
+      },
+      "stats": {
+        "businesses": "businesses",
+        "messagesPerDay": "messages/day",
+        "uptime": "uptime"
+      }
+    }
+  },
+  "onboarding": {
+    "steps": {
+      "ariaLabel": "Onboarding progress",
+      "bot": {
+        "description": "Bot connection",
+        "label": "Bot"
+      },
+      "business": {
+        "description": "Telegram Business",
+        "label": "Business"
+      },
+      "ai": {
+        "description": "AI setup",
+        "label": "AI"
+      },
+      "test": {
+        "description": "Auto-reply test",
+        "label": "Test"
+      }
+    },
+    "visual": {
+      "stepLabel": "Step {current} of {total} — {step}"
+    },
+    "bot": {
+      "header": {
+        "title": "Connect your bot",
+        "description": "Create a bot in @BotFather and copy the token"
+      },
+      "field": {
+        "label": "Bot token",
+        "placeholder": "1234567890:ABCDef..."
+      },
+      "validation": {
+        "required": "Enter the bot token",
+        "invalid": "Token is invalid"
+      },
+      "messages": {
+        "alreadyConnected": "Bot is already connected",
+        "success": "Bot {username} was found successfully"
+      },
+      "actions": {
+        "submit": "Verify and continue",
+        "submittingPending": "Checking token",
+        "submittingSuccess": "Moving on",
+        "help": "How do I get the token?"
+      },
+      "help": {
+        "title": "How to get the token",
+        "description": "Step-by-step guide to getting a bot token from BotFather in Telegram",
+        "close": "Close guide",
+        "steps": {
+          "openBotFather": "Open Telegram and find @BotFather",
+          "sendCommand": "Send the /newbot command",
+          "setName": "Enter the bot name and username",
+          "copyToken": "Copy the token from the reply"
+        }
+      }
+    },
+    "business": {
+      "header": {
+        "title": "Connect it to Telegram Business",
+        "description": "Follow the steps to connect the bot to your Telegram Business account"
+      },
+      "actions": {
+        "continue": "I've connected it, continue",
+        "back": "Back"
+      },
+      "steps": {
+        "settings": {
+          "title": "Open Settings",
+          "subtitle": "Telegram → Settings"
+        },
+        "business": {
+          "title": "Telegram Business",
+          "subtitle": "Go to the Telegram Business section"
+        },
+        "chatbots": {
+          "title": "Choose “Chatbots”",
+          "subtitle": "Open the chatbot management section"
+        },
+        "findBot": {
+          "title": "Find your bot",
+          "subtitle": "Find and select your bot's @username"
+        }
+      },
+      "visual": {
+        "title": "Telegram Business",
+        "connectedBot": "CONNECTED BOT",
+        "readyToConnect": "Ready to connect",
+        "selectThis": "Select this",
+        "flow": {
+          "settings": "⚙ Settings",
+          "business": "💼 Business",
+          "chatbots": "🤖 Chatbots"
+        },
+        "rows": {
+          "location": "Location",
+          "openingHours": "Opening Hours",
+          "chatbots": "Chatbots",
+          "greetingMessage": "Greeting Message",
+          "awayMessage": "Away Message"
+        }
+      }
+    }
+  }
+}

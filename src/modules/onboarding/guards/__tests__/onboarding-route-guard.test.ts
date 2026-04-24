@@ -18,19 +18,19 @@ const createRequest = (pathname: string, cookies: Record<string, string> = {}) =
 
 describe("onboarding route guard", () => {
   it("не требует fallback для первого шага", () => {
-    const request = createRequest("/onboarding/bot");
+    const request = createRequest("/ru/onboarding/bot");
 
     expect(getSkippedOnboardingStepPath(request)).toBeUndefined();
   });
 
   it("возвращает первый шаг, если business открыт без завершенного bot token", () => {
-    const request = createRequest("/onboarding/business");
+    const request = createRequest("/ru/onboarding/business");
 
     expect(getSkippedOnboardingStepPath(request)).toBe("/onboarding/bot");
   });
 
   it("разрешает business, если bot token step завершен", () => {
-    const request = createRequest("/onboarding/business", {
+    const request = createRequest("/ru/onboarding/business", {
       [ONBOARDING_BOT_TOKEN_COMPLETED_COOKIE]: "true",
     });
 
@@ -38,7 +38,7 @@ describe("onboarding route guard", () => {
   });
 
   it("проверяет nested business routes по prefix", () => {
-    const request = createRequest("/onboarding/business/details");
+    const request = createRequest("/ru/onboarding/business/details");
 
     expect(getSkippedOnboardingStepPath(request)).toBe("/onboarding/bot");
   });

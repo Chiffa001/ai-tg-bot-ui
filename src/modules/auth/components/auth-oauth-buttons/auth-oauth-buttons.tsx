@@ -1,11 +1,14 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { useTranslations } from "next-intl";
+import { useSearchParams } from "next/navigation";
 import { GlobeIcon } from "@/modules/auth/components/icons/globe-icon";
 import { TelegramIcon } from "@/modules/auth/components/icons/telegram-icon";
 import { createMockSession } from "@/modules/auth/api/create-mock-session";
 import type { AuthMode } from "@/modules/auth/constants/auth-form-modes";
+import { useRouter } from "@/i18n/navigation";
+import { normalizeInternalPath } from "@/i18n/routing";
 import { Button } from "@/shared/components/ui/button";
 
 type AuthOauthButtonsProps = {
@@ -17,6 +20,7 @@ type AuthProvider = "telegram" | "google";
 export const AuthOauthButtons = ({ mode }: AuthOauthButtonsProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const t = useTranslations();
   const nextPath = searchParams.get("next");
   const [activeProvider, setActiveProvider] = useState<AuthProvider | null>(null);
 
@@ -29,10 +33,10 @@ export const AuthOauthButtons = ({ mode }: AuthOauthButtonsProps) => {
         provider,
       });
 
-      const destination =
-        nextPath && nextPath.startsWith("/") ? nextPath : "/onboarding/bot";
+      const destination = normalizeInternalPath(nextPath ?? "");
+      const safeDestination = destination ?? "/onboarding/bot";
 
-      router.push(destination);
+      router.push(safeDestination);
       router.refresh();
     } finally {
       setActiveProvider(null);
@@ -48,7 +52,9 @@ export const AuthOauthButtons = ({ mode }: AuthOauthButtonsProps) => {
         onClick={() => handleAuth("telegram")}
       >
         <TelegramIcon />
-        {activeProvider === "telegram" ? "Подключаем Telegram..." : "Войти через Telegram"}
+        {activeProvider === "telegram"
+          ? t("auth.oauth.telegramConnecting")
+          : t("auth.oauth.telegram")}
       </Button>
       <Button
         variant="secondary"
@@ -57,7 +63,9 @@ export const AuthOauthButtons = ({ mode }: AuthOauthButtonsProps) => {
         onClick={() => handleAuth("google")}
       >
         <GlobeIcon />
-        {activeProvider === "google" ? "Подключаем Google..." : "Войти через Google"}
+        {activeProvider === "google"
+          ? t("auth.oauth.googleConnecting")
+          : t("auth.oauth.google")}
       </Button>
     </div>
   );

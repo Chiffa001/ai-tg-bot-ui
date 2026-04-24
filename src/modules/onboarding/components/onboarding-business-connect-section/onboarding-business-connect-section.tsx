@@ -1,14 +1,18 @@
+import { useTranslations } from "next-intl";
 import { OnboardingStepHeader } from "@/modules/onboarding/components/onboarding-step-header";
-import { businessConnectSteps } from "@/modules/onboarding/constants/business-connect-steps";
+import { getBusinessConnectSteps } from "@/modules/onboarding/constants/business-connect-steps";
 import { ButtonLink } from "@/shared/components/ui/button-link";
 import { cn } from "@/shared/lib/cn";
 
 export const OnboardingBusinessConnectSection = () => {
+  const t = useTranslations("onboarding.business");
+  const businessConnectSteps = getBusinessConnectSteps(t);
+
   return (
     <div className="flex flex-col gap-8">
       <OnboardingStepHeader
-        title="Подключите к Telegram Business"
-        description="Следуйте инструкции, чтобы подключить бота к вашему Telegram Business аккаунту"
+        title={t("header.title")}
+        description={t("header.description")}
       />
 
       <ol className="flex flex-col gap-5">
@@ -40,14 +44,14 @@ export const OnboardingBusinessConnectSection = () => {
       <div className="flex flex-col gap-3">
         <ButtonLink href="/" className="w-full rounded-lg py-3">
           <span aria-hidden="true">✓</span>
-          Я подключил, продолжить
+          {t("actions.continue")}
         </ButtonLink>
         <ButtonLink
           href="/onboarding/bot"
           variant="secondary"
           className="w-full rounded-lg py-3"
         >
-          Назад
+          {t("actions.back")}
         </ButtonLink>
       </div>
     </div>

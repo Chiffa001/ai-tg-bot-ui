@@ -1,0 +1,218 @@
+{
+  "metadata": {
+    "title": "ИИ-менеджер для Telegram Business",
+    "description": "ИИ-автоответчик для Telegram Business: отвечает клиентам 24/7, подключается за 5 минут и помогает не терять лидов.",
+    "openGraphDescription": "Автоматические ответы 24/7, передача менеджеру и быстрый запуск без кода."
+  },
+  "shared": {
+    "chatPreview": {
+      "badge": "AI Ассистент • Онлайн"
+    }
+  },
+  "errors": {
+    "server": {
+      "title": "Что-то пошло не так",
+      "description": "Мы уже знаем о проблеме и работаем над её устранением. Попробуйте обновить страницу через минуту.",
+      "retry": "Обновить страницу",
+      "backHome": "Вернуться на главную"
+    },
+    "notFound": {
+      "title": "Страница не найдена",
+      "description": "Возможно, ссылка устарела или вы допустили опечатку в адресе.",
+      "backHome": "Вернуться на главную"
+    }
+  },
+  "welcome": {
+    "hero": {
+      "badge": "Telegram Business SaaS",
+      "title": "ИИ-менеджер для Telegram Business",
+      "description": "Отвечает клиентам 24/7, пока вы заняты. Подключите за 5 минут и перестаньте терять лидов в Telegram."
+    },
+    "cta": {
+      "primary": "Подключить бесплатно",
+      "caption": "5 дней бесплатно, затем $49/мес",
+      "loginPrompt": "Уже есть аккаунт?",
+      "loginLink": "Войти"
+    },
+    "trust": {
+      "trial": "Бесплатный триал",
+      "noCard": "Без карты",
+      "setup": "5 мин настройка"
+    },
+    "features": {
+      "autoReplies": "24/7 автоответы",
+      "smartAi": "Умный ИИ",
+      "noCode": "Без кода"
+    },
+    "metrics": {
+      "firstReplyValue": "3 сек",
+      "firstReplyLabel": "средний первый ответ",
+      "launchValue": "5 мин",
+      "launchLabel": "до запуска бота",
+      "availabilityLabel": "клиенты получают ответ"
+    },
+    "chat": {
+      "customerQuestion": "Здравствуйте! Сколько стоит доставка в Москву?",
+      "aiAnswer": "Здравствуйте! Доставка в Москву стоит 350₽ и занимает 2-3 дня. Оформить заказ? 😊",
+      "customerConfirm": "Да, оформите, пожалуйста!",
+      "aiResult": "Отлично! Заказ #4821 оформлен ✅ Трек-номер придёт в течение часа."
+    }
+  },
+  "auth": {
+    "form": {
+      "or": "или",
+      "submitError": "Не удалось выполнить временный вход",
+      "passwordLabel": "Пароль",
+      "passwordPlaceholderLogin": "Введите пароль",
+      "passwordPlaceholderRegister": "Минимум 8 символов",
+      "showPassword": "Показать пароль",
+      "hidePassword": "Скрыть пароль",
+      "submitting": "Выполняем вход...",
+      "login": {
+        "heading": "Войти в аккаунт",
+        "submitLabel": "Войти",
+        "subtitle": "Продолжите автоматизировать ответы в Telegram",
+        "toggleLabel": "Нет аккаунта?",
+        "toggleLinkLabel": "Зарегистрироваться"
+      },
+      "register": {
+        "heading": "Создать аккаунт",
+        "submitLabel": "Зарегистрироваться",
+        "subtitle": "Начните автоматизировать ответы в Telegram",
+        "toggleLabel": "Уже есть аккаунт?",
+        "toggleLinkLabel": "Войти"
+      }
+    },
+    "oauth": {
+      "telegram": "Войти через Telegram",
+      "telegramConnecting": "Подключаем Telegram...",
+      "google": "Войти через Google",
+      "googleConnecting": "Подключаем Google..."
+    },
+    "validation": {
+      "invalidEmail": "Некорректный email",
+      "passwordMin": "Минимум 8 символов",
+      "passwordRequired": "Введите пароль"
+    },
+    "visual": {
+      "login": {
+        "heading": "С возвращением!",
+        "subtitle": "Ваш ИИ-ассистент ждёт вас"
+      },
+      "register": {
+        "author": "Алексей К., интернет-магазин",
+        "quote": "«Подключил за 5 минут, теперь ИИ отвечает клиентам даже ночью. Продажи выросли на 30%»"
+      },
+      "stats": {
+        "businesses": "бизнесов",
+        "messagesPerDay": "сообщений/день",
+        "uptime": "аптайм"
+      }
+    }
+  },
+  "onboarding": {
+    "steps": {
+      "ariaLabel": "Прогресс онбординга",
+      "bot": {
+        "description": "Подключение бота",
+        "label": "Бот"
+      },
+      "business": {
+        "description": "Telegram Business",
+        "label": "Business"
+      },
+      "ai": {
+        "description": "Настройка ИИ",
+        "label": "ИИ"
+      },
+      "test": {
+        "description": "Тест автоответа",
+        "label": "Тест"
+      }
+    },
+    "visual": {
+      "stepLabel": "Шаг {current} из {total} — {step}"
+    },
+    "bot": {
+      "header": {
+        "title": "Подключите вашего бота",
+        "description": "Создайте бота в @BotFather и скопируйте токен"
+      },
+      "field": {
+        "label": "Токен бота",
+        "placeholder": "1234567890:ABCDef..."
+      },
+      "validation": {
+        "required": "Введите токен бота",
+        "invalid": "Токен недействителен"
+      },
+      "messages": {
+        "alreadyConnected": "Бот уже подключён",
+        "success": "Бот {username} успешно найден"
+      },
+      "actions": {
+        "submit": "Проверить и продолжить",
+        "submittingPending": "Проверяем токен",
+        "submittingSuccess": "Переходим дальше",
+        "help": "Как получить токен?"
+      },
+      "help": {
+        "title": "Как получить токен",
+        "description": "Пошаговая инструкция по получению токена бота через BotFather в Telegram",
+        "close": "Закрыть инструкцию",
+        "steps": {
+          "openBotFather": "Откройте Telegram и найдите @BotFather",
+          "sendCommand": "Отправьте команду /newbot",
+          "setName": "Введите имя и username бота",
+          "copyToken": "Скопируйте токен из ответа"
+        }
+      }
+    },
+    "business": {
+      "header": {
+        "title": "Подключите к Telegram Business",
+        "description": "Следуйте инструкции, чтобы подключить бота к вашему Telegram Business аккаунту"
+      },
+      "actions": {
+        "continue": "Я подключил, продолжить",
+        "back": "Назад"
+      },
+      "steps": {
+        "settings": {
+          "title": "Откройте Настройки",
+          "subtitle": "Telegram → Настройки"
+        },
+        "business": {
+          "title": "Telegram Business",
+          "subtitle": "Перейдите в раздел «Telegram Business»"
+        },
+        "chatbots": {
+          "title": "Выберите «Chatbots»",
+          "subtitle": "Откройте раздел управления чат-ботами"
+        },
+        "findBot": {
+          "title": "Найдите вашего бота",
+          "subtitle": "Найдите и выберите @username вашего бота"
+        }
+      },
+      "visual": {
+        "title": "Telegram Business",
+        "connectedBot": "CONNECTED BOT",
+        "readyToConnect": "Готов к подключению",
+        "selectThis": "Выберите это",
+        "flow": {
+          "settings": "⚙ Settings",
+          "business": "💼 Business",
+          "chatbots": "🤖 Chatbots"
+        },
+        "rows": {
+          "location": "Location",
+          "openingHours": "Opening Hours",
+          "chatbots": "Chatbots",
+          "greetingMessage": "Greeting Message",
+          "awayMessage": "Away Message"
+        }
+      }
+    }
+  }
+}

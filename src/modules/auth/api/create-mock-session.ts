@@ -23,7 +23,7 @@ export const createMockSession = async ({
   });
 
   if (!response.ok) {
-    throw new Error("Не удалось создать временную сессию");
+    throw new Error("CREATE_MOCK_SESSION_FAILED");
   }
 
   return response.json();

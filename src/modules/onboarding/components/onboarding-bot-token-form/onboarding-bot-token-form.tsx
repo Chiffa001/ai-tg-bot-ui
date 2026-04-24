@@ -2,8 +2,9 @@
 
 import { useEffect, useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { useForm, useWatch } from "react-hook-form";
+import { useRouter } from "@/i18n/navigation";
 import { OnboardingHelpModal } from "@/modules/onboarding/components/onboarding-help-modal";
 import { CheckCircleIcon } from "@/modules/onboarding/components/icons/check-circle-icon";
 import { InfoIcon } from "@/modules/onboarding/components/icons/info-icon";
@@ -30,6 +31,7 @@ type SubmitStatus = "idle" | "success" | "error";
 
 export const OnboardingBotTokenForm = () => {
   const router = useRouter();
+  const t = useTranslations("onboarding.bot");
   const botToken = useOnboardingStore((state) => state.botToken);
   const setBotToken = useOnboardingStore((state) => state.setBotToken);
   const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
@@ -45,7 +47,7 @@ export const OnboardingBotTokenForm = () => {
     setValue,
     control,
   } = useForm<BotTokenFormData>({
-    resolver: zodResolver(botTokenSchema),
+    resolver: zodResolver(botTokenSchema(t)),
     defaultValues: {
       token: botToken,
     },
@@ -77,7 +79,7 @@ export const OnboardingBotTokenForm = () => {
     await sleep(900);
 
     if (token.toLowerCase().includes("already")) {
-      const message = "Бот уже подключён";
+      const message = t("messages.alreadyConnected");
 
       setError("token", { message });
       setSubmitStatus("error");
@@ -90,7 +92,7 @@ export const OnboardingBotTokenForm = () => {
 
     await markBotTokenStepCompleted();
     setSubmitStatus("success");
-    setSubmitMessage(`Бот ${username} успешно найден`);
+    setSubmitMessage(t("messages.success", { username }));
     setIsChecking(false);
 
     await sleep(900);
@@ -101,7 +103,7 @@ export const OnboardingBotTokenForm = () => {
   const showError = submitStatus === "error" || Boolean(tokenError);
   const showSuccess = submitStatus === "success";
   let tokenInputStateClassName = "border-slate-200 focus-within:border-accent";
-  let submitLabel = "Проверить и продолжить";
+  let submitLabel = t("actions.submit");
 
   if (showError) {
     tokenInputStateClassName = "border-red-400";
@@ -109,25 +111,25 @@ export const OnboardingBotTokenForm = () => {
 
   if (showSuccess) {
     tokenInputStateClassName = "border-green-500";
-    submitLabel = "Переходим дальше";
+    submitLabel = t("actions.submittingSuccess");
   }
 
   if (isChecking) {
-    submitLabel = "Проверяем токен";
+    submitLabel = t("actions.submittingPending");
   }
 
   return (
     <>
       <div className="flex w-full flex-col gap-8">
         <OnboardingStepHeader
-          title="Подключите вашего бота"
-          description="Создайте бота в @BotFather и скопируйте токен"
+          title={t("header.title")}
+          description={t("header.description")}
         />
 
         <form className="flex flex-col gap-4" onSubmit={handleSubmit(onSubmit)}>
           <label className="flex flex-col gap-1.5">
             <span className="text-[13px] font-medium text-slate-950">
-              Токен бота
+              {t("field.label")}
             </span>
             <span
               className={cn(
@@ -139,7 +141,7 @@ export const OnboardingBotTokenForm = () => {
               <input
                 {...tokenField}
                 type="text"
-                placeholder="1234567890:ABCDef..."
+                placeholder={t("field.placeholder")}
                 autoComplete="off"
                 className="w-full min-w-0 border-none bg-transparent text-sm text-slate-950 outline-none placeholder:text-slate-400"
                 aria-invalid={showError}
@@ -183,7 +185,7 @@ export const OnboardingBotTokenForm = () => {
             className="flex w-fit items-center gap-1.5 text-[13px] font-medium text-accent hover:text-accent-strong"
           >
             <InfoIcon className="h-4 w-4" />
-            Как получить токен?
+            {t("actions.help")}
           </button>
         </form>
       </div>
